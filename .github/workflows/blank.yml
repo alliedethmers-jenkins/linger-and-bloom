@@ -1,36 +1,24 @@
-# This is a basic workflow to help you get started with Actions
+branch: claude/portfolio-redesign-immersive-f5QG4
+files: [
+  {"path": ".gitignore", "content": "# Dependencies\nnode_modules/\n.pnp\n.pnp.js\n\n# Next.js\n.next/\nout/\nbuild/\n\n# Misc\n.DS_Store\n*.pem\n.env*\n!.env.example\n\n# Vercel\n.vercel\n\n# TypeScript\n*.tsbuildinfo\nnext-env.d.ts\n"},
+  {"path": "next.config.mjs", "content": "/** @type {import('next').NextConfig} */\nconst nextConfig = {\n  images: {\n    remotePatterns: [],\n  },\n}\n\nexport default nextConfig\n"},
+  {"path": "package.json", "content": "{\n  \"name\": \"linger-and-bloom\",\n  \"version\": \"0.1.0\",\n  \"private\": true,\n  \"scripts\": {\n    \"dev\": \"next dev\",\n    \"build\": \"next build\",\n    \"start\": \"next start\",\n    \"lint\": \"next lint\"\n  },\n  \"dependencies\": {\n    \"next\": \"14.2.3\",\n    \"react\": \"^18\",\n    \"react-dom\": \"^18\",\n    \"framer-motion\": \"^11.0.8\"\n  },\n  \"devDependencies\": {\n    \"@types/node\": \"^20\",\n    \"@types/react\": \"^18\",\n    \"@types/react-dom\": \"^18\",\n    \"autoprefixer\": \"^10.0.1\",\n    \"postcss\": \"^8\",\n    \"tailwindcss\": \"^3.4.0\",\n    \"typescript\": \"^5\"\n  }\n}\n"},
+  {"path": "postcss.config.mjs", "content": "const config = {\n  plugins: {\n    tailwindcss: {},\n    autoprefixer: {},\n  },\n}\n\nexport default config\n"},
+  {"path": "tailwind.config.ts", "content": "import type { Config } from 'tailwindcss'\n\nconst config: Config = {\n  content: [\n    './app/**/*.{js,ts,jsx,tsx,mdx}',\n    './components/**/*.{js,ts,jsx,tsx,mdx}',\n  ],\n  theme: {\n    extend: {\n      colors: {\n        cinema: '#0a0908',\n        cream: '#f2ebe0',\n        gold: '#b8976a',\n        rose: '#c4968a',\n        charcoal: '#1c1a17',\n        parchment: '#f5f0e6',\n        plum: '#1e1520',\n        'tv-body': '#ddd5c4',\n        'tv-bezel': '#1e160e',\n      },\n      fontFamily: {\n        playfair: ['var(--font-playfair)', 'Georgia', 'serif'],\n        cormorant: ['var(--font-cormorant)', 'Georgia', 'serif'],\n        mono: ['var(--font-mono)', '\"Courier New\"', 'monospace'],\n      },\n    },\n  },\n  plugins: [],\n}\n\nexport default config\n"},
+  {"path": "tsconfig.json", "content": "{\n  \"compilerOptions\": {\n    \"lib\": [\"dom\", \"dom.iterable\", \"esnext\"],\n    \"allowJs\": true,\n    \"skipLibCheck\": true,\n    \"strict\": true,\n    \"noEmit\": true,\n    \"esModuleInterop\": true,\n    \"module\": \"esnext\",\n    \"moduleResolution\": \"bundler\",\n    \"resolveJsonModule\": true,\n    \"isolatedModules\": true,\n    \"jsx\": \"preserve\",\n    \"incremental\": true,\n    \"plugins\": [{ \"name\": \"next\" }],\n    \"paths\": { \"@/*\": [\"./*\"] }\n  },\n  \"include\": [\"next-env.d.ts\", \"**/*.ts\", \"**/*.tsx\", \".next/types/**/*.ts\"],\n  \"exclude\": [\"node_modules\"]\n}\n"},
+  {"path": "app/globals.css", "content": "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n@layer base {\n  html {\n    scroll-behavior: smooth;\n  }\n  body {\n    background: #0a0908;\n    color: #f2ebe0;\n    overflow-x: hidden;\n  }\n  ::selection {\n    background: #b8976a;\n    color: #0a0908;\n  }\n}\n\n@keyframes grain {\n  0%, 100% { transform: translate(0, 0); }\n  10%   { transform: translate(-5%, -10%); }\n  20%   { transform: translate(-15%, 5%); }\n  30%   { transform: translate(7%, -25%); }\n  40%   { transform: translate(-5%, 25%); }\n  50%   { transform: translate(-15%, 10%); }\n  60%   { transform: translate(15%, 0%); }\n  70%   { transform: translate(0%, 15%); }\n  80%   { transform: translate(3%, 35%); }\n  90%   { transform: translate(-10%, 10%); }\n}\n\n@keyframes slowZoom {\n  from { transform: scale(1); }\n  to   { transform: scale(1.06); }\n}\n\n@keyframes tvStatic {\n  0%   { background-position: 0%   0%; }\n  25%  { background-position: 50%  30%; }\n  50%  { background-position: 20%  70%; }\n  75%  { background-position: 80%  10%; }\n  100% { background-position: 0%   0%; }\n}\n\n@keyframes scanIn {\n  from { clip-path: inset(0 0 100% 0); }\n  to   { clip-path: inset(0 0 0% 0); }\n}\n\n@keyframes tvFlicker {\n  0%   { opacity: 0; }\n  20%  { opacity: 0.9; }\n  40%  { opacity: 0.2; }\n  60%  { opacity: 1; }\n  80%  { opacity: 0.6; }\n  100% { opacity: 1; }\n}\n\n@keyframes fadeUp {\n  from { opacity: 0; transform: translateY(24px); }\n  to   { opacity: 1; transform: translateY(0); }\n}\n\n.film-grain {\n  position: relative;\n}\n.film-grain::before {\n  content: '';\n  position: absolute;\n  inset: -100%;\n  width: 300%;\n  height: 300%;\n  background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E\");\n  background-repeat: repeat;\n  background-size: 220px 220px;\n  opacity: 0.07;\n  pointer-events: none;\n  animation: grain 8s steps(10) infinite;\n  mix-blend-mode: multiply;\n  z-index: 30;\n}\n\n.tv-static-noise {\n  background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\");\n  background-size: 100% 100%;\n  animation: tvStatic 0.08s steps(1) infinite;\n}\n\n.tv-scan-in {\n  animation: scanIn 0.55s ease-out forwards;\n}\n\n.tv-flicker {\n  animation: tvFlicker 0.45s ease-out forwards;\n}\n\n.crt-scanlines {\n  background-image: repeating-linear-gradient(\n    0deg,\n    transparent,\n    transparent 2px,\n    rgba(0, 0, 0, 0.1) 2px,\n    rgba(0, 0, 0, 0.1) 4px\n  );\n}\n\n.letterbox {\n  position: relative;\n}\n.letterbox::before,\n.letterbox::after {\n  content: '';\n  position: absolute;\n  left: 0;\n  right: 0;\n  height: 11%;\n  background: #000;\n  z-index: 20;\n  pointer-events: none;\n}\n.letterbox::before { top: 0; }\n.letterbox::after  { bottom: 0; }\n\n.reveal-up {\n  opacity: 0;\n  transform: translateY(28px);\n  transition: opacity 0.9s ease, transform 0.9s ease;\n}\n.reveal-up.visible {\n  opacity: 1;\n  transform: translateY(0);\n}\n"},
+  {"path": "app/layout.tsx", "content": "import type { Metadata } from 'next'\nimport { Playfair_Display, Cormorant_Garamond, IBM_Plex_Mono } from 'next/font/google'\nimport './globals.css'\n\nconst playfair = Playfair_Display({\n  subsets: ['latin'],\n  variable: '--font-playfair',\n  display: 'swap',\n})\n\nconst cormorant = Cormorant_Garamond({\n  subsets: ['latin'],\n  weight: ['300', '400', '500', '600'],\n  style: ['normal', 'italic'],\n  variable: '--font-cormorant',\n  display: 'swap',\n})\n\nconst ibmMono = IBM_Plex_Mono({\n  subsets: ['latin'],\n  weight: ['300', '400'],\n  variable: '--font-mono',\n  display: 'swap',\n})\n\nexport const metadata: Metadata = {\n  title: 'Linger & Bloom | Florals · Events · Editorial',\n  description:\n    'Immersive floral design, cinematic tablescapes, and editorial still life by Linger & Bloom.',\n  openGraph: {\n    title: 'Linger & Bloom',\n    description: 'Florals · Events · Editorial',\n    type: 'website',\n  },\n}\n\nexport default function RootLayout({ children }: { children: React.ReactNode }) {\n  return (\n    <html\n      lang=\"en\"\n      className={`${playfair.variable} ${cormorant.variable} ${ibmMono.variable}`}\n    >\n      <body className=\"bg-cinema text-cream antialiased\">{children}</body>\n    </html>\n  )\n}\n"},
+  {"path": "app/page.tsx", "content": "import Navigation from './components/Navigation'\nimport Hero from './components/Hero'\nimport FloralsPillar from './components/FloralsPillar'\nimport EventsPillar from './components/EventsPillar'\nimport EditorialPillar from './components/EditorialPillar'\nimport Footer from './components/Footer'\n\nexport default function Home() {\n  return (\n    <main>\n      <Navigation />\n      <Hero />\n      <FloralsPillar />\n      <EventsPillar />\n      <EditorialPillar />\n      <Footer />\n    </main>\n  )\n}\n"}
+]
+message: feat: build immersive portfolio site for Linger & Bloom
 
-name: CI
+Three-pillar portfolio with distinct visual languages:
+- Florals & Tablescapes: interactive vintage CRT TV screens for the
+  Supper & Cinema Series (Before Sunrise, North By Northwest, Big Night,
+  Moulin Rouge) + film-still letterbox gallery for Weddings
+- Private Events: magazine-style spreads with lookbook detail grid and
+  animated testimonial carousel for Regency Study & Night of Betrayal
+- Editorial & Still Life: clean editorial grid on parchment background
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+Stack: Next.js 14, TypeScript, Tailwind CSS, Framer Motion
+Placeholder gradient divs ready to swap for real photos.
