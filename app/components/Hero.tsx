@@ -8,98 +8,59 @@ export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
 
   return (
-    <section ref={ref} className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Background image */}
+    <section ref={ref} className="relative h-screen flex items-end overflow-hidden">
+      {/* Full-screen background image */}
       <motion.div style={{ y }} className="absolute inset-0 z-0 scale-110">
         <Image
-          src="/images/big-night-table.webp"
-          alt="Linger & Bloom tablescape"
+          src="/images/editorial-squash.webp"
+          alt="Linger & Bloom"
           fill
           priority
-          className="object-cover"
+          className="object-cover object-center"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-parchment/50" />
+        {/* Gradient overlay — darker at bottom where text lives */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
       </motion.div>
 
-      {/* Gold rule top */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent z-10" />
-
+      {/* Text — bottom left */}
       <motion.div
         style={{ opacity }}
-        className="relative z-10 text-center px-6 max-w-4xl mx-auto"
+        className="relative z-10 px-8 md:px-12 pb-16 md:pb-20 max-w-xl"
       >
-        <motion.p
-          initial={{ opacity: 0, letterSpacing: '0.4em' }}
-          animate={{ opacity: 1, letterSpacing: '0.3em' }}
-          transition={{ duration: 1.4, ease: 'easeOut' }}
-          className="font-mono text-xs text-gold uppercase tracking-[0.3em] mb-8 drop-shadow-sm"
-        >
-          Florals · Events · Editorial
-        </motion.p>
-
         <motion.h1
-          initial={{ opacity: 0, y: 32 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="font-playfair text-6xl md:text-8xl lg:text-[6.5rem] text-ink leading-none tracking-tight mb-8 drop-shadow-sm"
+          transition={{ duration: 1.1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="font-playfair text-5xl md:text-6xl lg:text-7xl text-white leading-[1.05] mb-5"
         >
-          Linger
-          <br />
-          <em className="text-gold italic">&amp;</em>
-          <br />
-          Bloom
+          Artist. Florist.{' '}
+          <em className="italic text-white/70">Dinner Party Enthusiast.</em>
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.7, ease: 'easeOut' }}
-          className="font-cormorant text-xl md:text-2xl text-charcoal/80 italic tracking-wide max-w-xl mx-auto drop-shadow-sm"
+          transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+          className="font-cormorant text-base text-white/60 leading-relaxed mb-8 max-w-sm"
         >
-          Where every arrangement tells a story worth lingering in.
+          A creative event studio that produces beautiful florals, tablescapes,
+          and immersive event environments. Come to us with a vision.
         </motion.p>
 
-        <motion.div
+        <motion.a
+          href="#florals"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="mt-14 flex flex-col sm:flex-row gap-5 justify-center"
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/80 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-0.5"
         >
-          <a
-            href="#florals"
-            className="inline-block font-mono text-xs tracking-[0.2em] uppercase border border-gold text-gold px-8 py-4 hover:bg-gold hover:text-cinema transition-all duration-300 bg-cinema/60 backdrop-blur-sm"
-          >
-            View Work
-          </a>
-          <a
-            href="#contact"
-            className="inline-block font-mono text-xs tracking-[0.2em] uppercase text-charcoal/70 px-8 py-4 hover:text-ink transition-colors duration-300"
-          >
-            Get in Touch
-          </a>
-        </motion.div>
+          View the Work →
+        </motion.a>
       </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
-      >
-        <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-charcoal/40">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-px h-8 bg-gradient-to-b from-gold/40 to-transparent"
-        />
-      </motion.div>
-
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent z-10" />
     </section>
   )
 }
