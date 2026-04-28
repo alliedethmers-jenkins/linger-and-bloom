@@ -29,7 +29,7 @@ const cinemaScreenings = [
     director: 'Campbell Scott',
     accent: '#8a6d4a',
     description: 'Terracotta vessels, olive branches, candlelit abundance.',
-    image: '/images/big-night-table.jpg',
+    image: '/images/big-night-table.webp',
     gradient: 'from-[#e8ddd5] to-[#d4c8bc]',
   },
   {
@@ -38,14 +38,14 @@ const cinemaScreenings = [
     director: 'Baz Luhrmann',
     accent: '#9e6b60',
     description: 'Velvet reds, gilded stems, and theatrical excess.',
-    image: '/images/moulin-rouge-florals.jpg',
+    image: '/images/moulin-rouge-florals.webp',
     gradient: 'from-[#e8d5d0] to-[#d4bfba]',
   },
 ]
 
 const weddingGallery = [
   { label: 'Garden Ceremony', image: null, gradient: 'from-[#d4e0d4] to-[#c0cfc0]' },
-  { label: 'Reception Table', image: '/images/big-night-screening.jpg', gradient: 'from-[#e8ddd5] to-[#d4c8bc]' },
+  { label: 'Reception Table', image: '/images/big-night-screening.webp', gradient: 'from-[#e8ddd5] to-[#d4c8bc]' },
   { label: 'Bridal Bouquet', image: null, gradient: 'from-[#e8d5d0] to-[#d4bfba]' },
   { label: 'Altar Installation', image: null, gradient: 'from-[#d4e0d4] to-[#c0cfc0]' },
   { label: 'Cocktail Hour', image: null, gradient: 'from-[#e8e0d0] to-[#d4c8b4]' },

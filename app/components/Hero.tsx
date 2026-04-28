@@ -15,7 +15,7 @@ export default function Hero() {
       {/* Background image */}
       <motion.div style={{ y }} className="absolute inset-0 z-0 scale-110">
         <Image
-          src="/images/big-night-table.jpg"
+          src="/images/big-night-table.webp"
           alt="Linger & Bloom tablescape"
           fill
           priority
