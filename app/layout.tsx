@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${playfair.variable} ${cormorant.variable} ${ibmMono.variable}`}
     >
-      <body className="bg-cinema text-cream antialiased">{children}</body>
+      <body className="bg-cinema text-ink antialiased">{children}</body>
     </html>
   )
 }

@@ -8,15 +8,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cinema: '#0a0908',
-        cream: '#f2ebe0',
-        gold: '#b8976a',
-        rose: '#c4968a',
-        charcoal: '#1c1a17',
-        parchment: '#f5f0e6',
-        plum: '#1e1520',
-        'tv-body': '#ddd5c4',
-        'tv-bezel': '#1e160e',
+        cinema: '#faf7f2',
+        cream: '#3d3530',
+        gold: '#8a6d4a',
+        rose: '#9e6b60',
+        charcoal: '#3d3530',
+        parchment: '#f2ede4',
+        plum: '#5a3d4a',
+        'tv-body': '#e8e0d0',
+        'tv-bezel': '#3d3530',
+        ink: '#2a2420',
+        sage: '#8a9e8a',
+        blush: '#e8d5cc',
       },
       fontFamily: {
         playfair: ['var(--font-playfair)', 'Georgia', 'serif'],

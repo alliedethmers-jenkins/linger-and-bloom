@@ -7,13 +7,13 @@
     scroll-behavior: smooth;
   }
   body {
-    background: #0a0908;
-    color: #f2ebe0;
+    background: #faf7f2;
+    color: #3d3530;
     overflow-x: hidden;
   }
   ::selection {
-    background: #b8976a;
-    color: #0a0908;
+    background: #8a6d4a;
+    color: #faf7f2;
   }
 }
 
