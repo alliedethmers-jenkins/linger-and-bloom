@@ -1,45 +1,61 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useRef, useState } from 'react'
 import Image from 'next/image'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion'
 
-const cinemaScreenings = [
+const films = [
   {
-    film: 'Before Sunrise',
-    year: '1995',
-    director: 'Richard Linklater',
-    accent: '#9e6b60',
-    description: 'Dusty roses and dried lavender. A wandering evening tablescape.',
-    image: null,
-    gradient: 'from-[#e8ddd5] to-[#d4c8bc]',
-  },
-  {
-    film: 'North By Northwest',
-    year: '1959',
-    director: 'Alfred Hitchcock',
-    accent: '#8a6d4a',
-    description: 'Silver-grey foliage, black tulips, gold candlestick drama.',
-    image: null,
-    gradient: 'from-[#dde0e4] to-[#c8ccd2]',
-  },
-  {
-    film: 'Big Night',
-    year: '1996',
-    director: 'Campbell Scott',
-    accent: '#8a6d4a',
-    description: 'Terracotta vessels, olive branches, candlelit abundance.',
-    image: '/images/big-night-table.webp',
-    gradient: 'from-[#e8ddd5] to-[#d4c8bc]',
-  },
-  {
+    index: '01',
     film: 'Moulin Rouge',
     year: '2001',
     director: 'Baz Luhrmann',
-    accent: '#9e6b60',
-    description: 'Velvet reds, gilded stems, and theatrical excess.',
-    image: '/images/moulin-rouge-florals.webp',
-    gradient: 'from-[#e8d5d0] to-[#d4bfba]',
+    tagline: 'Velvet reds, gilded stems, and theatrical excess.',
+    description:
+      'An evening of decadent florals and theatrical glamour. Crimson roses spill from gilded urns; candlelight catches on sequined table runners. An immersive dinner that dazzles.',
+    images: ['/images/moulin-rouge-florals.webp'],
+    gradient: 'from-[#1a0505] via-[#2d0c0c] to-[#0a0202]',
+    overlay: 'bg-black/40',
+    accent: '#c0605050',
+  },
+  {
+    index: '02',
+    film: 'Big Night',
+    year: '1996',
+    director: 'Stanley Tucci & Campbell Scott',
+    tagline: 'Terracotta vessels, olive branches, candlelit abundance.',
+    description:
+      'A feast for the eyes. Warm terracotta, generous olive branches, and the kind of candlelit table that makes every guest feel like family. A love letter to the Italian table.',
+    images: ['/images/big-night-screening.webp', '/images/big-night-menu.webp'],
+    gradient: 'from-[#1e1508] via-[#2d2010] to-[#0f0a04]',
+    overlay: 'bg-black/30',
+    accent: '#c09060',
+  },
+  {
+    index: '03',
+    film: 'North by Northwest',
+    year: '1959',
+    director: 'Alfred Hitchcock',
+    tagline: 'Silver-grey foliage, black tulips, gold candlestick drama.',
+    description:
+      'Hitchcockian tension rendered in florals. Steel-grey eucalyptus and dramatic black tulips create a table of suspense and sophistication. An evening of intrigue.',
+    images: [],
+    gradient: 'from-[#0e121a] via-[#1a2030] to-[#080c12]',
+    overlay: 'bg-black/35',
+    accent: '#8090a8',
+  },
+  {
+    index: '04',
+    film: 'Before Sunrise',
+    year: '1995',
+    director: 'Richard Linklater',
+    tagline: 'Dusty roses and dried lavender. A wandering evening tablescape.',
+    description:
+      'The golden hour of a chance encounter. Dried lavender and blush roses left to wander naturally, with the gentle warmth of an unhurried evening in Vienna.',
+    images: [],
+    gradient: 'from-[#1e1a10] via-[#2d2818] to-[#100e08]',
+    overlay: 'bg-black/25',
+    accent: '#c0a070',
   },
 ]
 
@@ -52,77 +68,135 @@ const weddingGallery = [
   { label: 'Cake Table', image: null, gradient: 'from-[#e8ddd5] to-[#d4c8bc]' },
 ]
 
-function CRTScreen({ screening, isActive }: { screening: typeof cinemaScreenings[0], isActive: boolean }) {
+function FilmPanel({ film }: { film: typeof films[0] }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
+  const y = useTransform(scrollYProgress, [0, 1], ['-8%', '8%'])
+  const isInView = useInView(ref, { once: false, margin: '-15%' })
+
+  const hasTwoImages = film.images.length >= 2
+
   return (
-    <div className="relative">
-      {/* TV body */}
-      <div className="bg-tv-body rounded-2xl p-4 shadow-lg border-4 border-tv-bezel/30">
-        {/* TV bezel */}
-        <div className="bg-tv-bezel/10 rounded-lg overflow-hidden relative border border-tv-bezel/20" style={{ aspectRatio: '4/3' }}>
-          <AnimatePresence mode="wait">
-            {isActive ? (
-              <motion.div
-                key="active"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="absolute inset-0"
-              >
-                {screening.image ? (
-                  <Image
-                    src={screening.image}
-                    alt={screening.film}
-                    fill
-                    className="object-cover tv-scan-in"
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                  />
-                ) : (
-                  <div className={`w-full h-full bg-gradient-to-br ${screening.gradient}`} />
-                )}
-                {/* Light scanlines overlay */}
-                <div className="absolute inset-0 crt-scanlines opacity-15 pointer-events-none z-10" />
-                <div className="absolute inset-0 flex flex-col justify-end p-4 z-20 bg-gradient-to-t from-black/40 to-transparent">
-                  <p className="font-mono text-[8px] tracking-[0.2em] uppercase mb-0.5" style={{ color: '#fff' + 'aa' }}>
-                    Supper & Cinema
-                  </p>
-                  <h3 className="font-playfair text-base text-white leading-tight">{screening.film}</h3>
-                  <p className="font-mono text-[8px] text-white/60 tracking-widest">{screening.year}</p>
-                </div>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="static"
-                className={`absolute inset-0 bg-gradient-to-br ${screening.gradient} opacity-60`}
+    <div ref={ref} className="relative h-screen overflow-hidden bg-black">
+      {/* Cinematic letterbox bars */}
+      <div className="absolute top-0 left-0 right-0 h-[9vh] bg-black z-30 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-[9vh] bg-black z-30 pointer-events-none" />
+
+      {/* Background image(s) with parallax */}
+      <motion.div style={{ y }} className="absolute inset-0 scale-[1.18]">
+        {hasTwoImages ? (
+          <div className="absolute inset-0 flex">
+            <div className="relative flex-1 overflow-hidden">
+              <Image
+                src={film.images[0]}
+                alt={film.film}
+                fill
+                className="object-cover"
+                sizes="50vw"
               />
-            )}
-          </AnimatePresence>
-          {/* Screen glare */}
-          <div className="absolute top-2 left-2 w-8 h-4 bg-white/20 rounded-full rotate-[-20deg] pointer-events-none z-30" />
-        </div>
-        {/* TV controls */}
-        <div className="flex justify-end gap-2 mt-3 pr-1">
-          <div className="w-2 h-2 rounded-full bg-tv-bezel/30" />
-          <div className="w-2 h-2 rounded-full bg-tv-bezel/30" />
-          <div className="w-4 h-2 rounded bg-tv-bezel/20" />
-        </div>
+            </div>
+            <div className="relative flex-1 overflow-hidden">
+              <Image
+                src={film.images[1]}
+                alt={`${film.film} detail`}
+                fill
+                className="object-cover"
+                sizes="50vw"
+              />
+              {/* center seam shadow */}
+              <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-black/50 to-transparent z-10" />
+            </div>
+          </div>
+        ) : film.images[0] ? (
+          <Image
+            src={film.images[0]}
+            alt={film.film}
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+        ) : (
+          <div className={`w-full h-full bg-gradient-to-br ${film.gradient}`} />
+        )}
+      </motion.div>
+
+      {/* Cinematic color grade overlay */}
+      <div className={`absolute inset-0 z-10 ${film.overlay}`} />
+      <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/40 to-transparent" />
+
+      {/* Film grain */}
+      <div className="film-grain absolute inset-0 z-20 pointer-events-none opacity-30" />
+
+      {/* Film number — top right */}
+      <div className="absolute top-[11vh] right-8 md:right-12 z-40">
+        <span className="font-mono text-[9px] tracking-[0.35em] uppercase text-white/30">
+          {film.index} / 04
+        </span>
       </div>
-      <div className="mx-auto w-12 h-3 bg-tv-bezel/20 rounded-b-sm" />
-      <div className="mx-auto w-20 h-1.5 bg-tv-bezel/15 rounded" />
+
+      {/* Supper & Cinema label — top left */}
+      <div className="absolute top-[11vh] left-8 md:left-16 z-40">
+        <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-white/30">
+          Supper &amp; Cinema Series
+        </span>
+      </div>
+
+      {/* Film info — bottom left */}
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute bottom-[12vh] left-8 md:left-16 z-40 max-w-lg"
+      >
+        <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-white/40 mb-3">
+          {film.year} &nbsp;·&nbsp; {film.director}
+        </p>
+        <h3 className="font-playfair text-5xl md:text-6xl lg:text-7xl text-white leading-[1.05] mb-4">
+          {film.film}
+        </h3>
+        <p className="font-cormorant text-lg italic text-white/65 mb-7 max-w-sm leading-relaxed">
+          {film.tagline}
+        </p>
+        <a
+          href="#contact"
+          className="font-mono text-[10px] tracking-[0.22em] uppercase text-white/60 hover:text-white transition-colors border-b border-white/20 hover:border-white/60 pb-0.5"
+        >
+          Book This Experience →
+        </a>
+      </motion.div>
+
+      {/* Scroll cue — only on first panel */}
+      {film.index === '01' && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
+          className="absolute bottom-[11vh] right-8 md:right-12 z-40 flex flex-col items-center gap-1.5"
+        >
+          <span className="font-mono text-[8px] tracking-[0.3em] uppercase text-white/25 rotate-90 mb-2">
+            Scroll
+          </span>
+          <div className="w-px h-8 bg-white/20" />
+        </motion.div>
+      )}
     </div>
   )
 }
 
 export default function FloralsPillar() {
-  const [activeScreen, setActiveScreen] = useState(2)
-  const sectionRef = useRef<HTMLElement>(null)
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
+  const headerRef = useRef<HTMLDivElement>(null)
+  const weddingRef = useRef<HTMLDivElement>(null)
+  const isWeddingInView = useInView(weddingRef, { once: true, margin: '-80px' })
 
   return (
-    <section id="florals" ref={sectionRef} className="py-32 bg-cinema">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-20">
+    <section id="florals">
+      {/* Section header */}
+      <div ref={headerRef} className="py-20 bg-cinema px-8 md:px-16 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.9 }}
         >
           <p className="font-mono text-xs tracking-[0.3em] uppercase text-gold/70 mb-4">01 / Florals & Tablescapes</p>
@@ -133,98 +207,83 @@ export default function FloralsPillar() {
         </motion.div>
       </div>
 
-      {/* Supper & Cinema Series */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-28">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="mb-10"
-        >
-          <div className="flex items-center gap-4">
-            <div className="h-px flex-1 bg-gold/20" />
-            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-gold/60">Supper & Cinema Series</span>
-            <div className="h-px flex-1 bg-gold/20" />
+      {/* Supper & Cinema — film panels */}
+      <div>
+        <div className="bg-black py-6 px-8 md:px-16">
+          <div className="max-w-7xl mx-auto flex items-center gap-4">
+            <div className="h-px flex-1 bg-white/10" />
+            <span className="font-mono text-[10px] tracking-[0.35em] uppercase text-white/40">
+              Supper &amp; Cinema Series
+            </span>
+            <div className="h-px flex-1 bg-white/10" />
           </div>
-        </motion.div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-10">
-          {cinemaScreenings.map((screening, i) => (
-            <motion.div
-              key={screening.film}
-              initial={{ opacity: 0, y: 32 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.1 * i + 0.3 }}
-              className="cursor-pointer"
-              onClick={() => setActiveScreen(i)}
-            >
-              <CRTScreen screening={screening} isActive={activeScreen === i} />
-              <p className="text-center font-mono text-[10px] text-charcoal/40 mt-3 tracking-widest uppercase">
-                {screening.film}
-              </p>
-            </motion.div>
-          ))}
         </div>
 
-        <motion.div
-          key={activeScreen}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="border border-gold/20 bg-parchment p-8 max-w-2xl"
-        >
-          <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-gold/60 mb-2">Now Screening</p>
-          <h3 className="font-playfair text-3xl text-ink mb-1">{cinemaScreenings[activeScreen].film}</h3>
-          <p className="font-cormorant italic text-charcoal/60 mb-4">{cinemaScreenings[activeScreen].description}</p>
-          <a href="#contact" className="font-mono text-xs tracking-[0.2em] uppercase text-gold hover:text-ink transition-colors">
-            Book This Experience →
+        {films.map((film) => (
+          <FilmPanel key={film.film} film={film} />
+        ))}
+
+        {/* Inter-panel CTA */}
+        <div className="bg-black py-20 px-8 md:px-16 text-center">
+          <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/30 mb-6">
+            Four films. Four evenings. One experience.
+          </p>
+          <a
+            href="#contact"
+            className="inline-block font-mono text-xs tracking-[0.2em] uppercase border border-white/20 text-white/60 hover:text-white hover:border-white/50 px-8 py-4 transition-all duration-300"
+          >
+            Enquire About Supper &amp; Cinema
           </a>
-        </motion.div>
+        </div>
       </div>
 
       {/* Weddings — Letterbox Gallery */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.4 }}
-          className="mb-10"
-        >
-          <div className="flex items-center gap-4">
-            <div className="h-px flex-1 bg-gold/20" />
-            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-gold/60">Weddings</span>
-            <div className="h-px flex-1 bg-gold/20" />
-          </div>
-        </motion.div>
+      <div ref={weddingRef} className="py-28 bg-cinema px-6 md:px-12">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isWeddingInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.7 }}
+            className="mb-10"
+          >
+            <div className="flex items-center gap-4">
+              <div className="h-px flex-1 bg-gold/20" />
+              <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-gold/60">Weddings</span>
+              <div className="h-px flex-1 bg-gold/20" />
+            </div>
+          </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {weddingGallery.map((item, i) => (
-            <motion.div
-              key={item.label}
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.05 * i + 0.5 }}
-              className="letterbox group cursor-pointer overflow-hidden"
-              style={{ aspectRatio: '16/9' }}
-            >
-              {item.image ? (
-                <Image
-                  src={item.image}
-                  alt={item.label}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                />
-              ) : (
-                <div className={`w-full h-full bg-gradient-to-br ${item.gradient} group-hover:scale-105 transition-transform duration-700`} />
-              )}
-              <div className="absolute inset-0 flex items-center justify-center z-10">
-                <span className="font-cormorant text-sm italic text-white/70 group-hover:text-white transition-colors drop-shadow">
-                  {item.label}
-                </span>
-              </div>
-            </motion.div>
-          ))}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {weddingGallery.map((item, i) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={isWeddingInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.05 * i + 0.2 }}
+                className="letterbox group cursor-pointer overflow-hidden"
+                style={{ aspectRatio: '16/9' }}
+              >
+                {item.image ? (
+                  <Image
+                    src={item.image}
+                    alt={item.label}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                  />
+                ) : (
+                  <div
+                    className={`w-full h-full bg-gradient-to-br ${item.gradient} group-hover:scale-105 transition-transform duration-700`}
+                  />
+                )}
+                <div className="absolute inset-0 flex items-center justify-center z-10">
+                  <span className="font-cormorant text-sm italic text-white/70 group-hover:text-white transition-colors drop-shadow">
+                    {item.label}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
