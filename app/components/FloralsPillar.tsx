@@ -15,7 +15,7 @@ const films = [
       'An evening of decadent florals and theatrical glamour. Crimson roses spill from gilded urns; candlelight catches on sequined table runners. An immersive dinner that dazzles.',
     images: ['/images/moulin-rouge-menu.webp', '/images/moulin-rouge-table.webp'],
     gradient: 'from-[#1a0505] via-[#2d0c0c] to-[#0a0202]',
-    overlay: 'bg-black/40',
+    overlay: 'bg-black/20',
     accent: '#c06050',
   },
   {
@@ -28,7 +28,7 @@ const films = [
       'A feast for the eyes. Warm terracotta, generous olive branches, and the kind of candlelit table that makes every guest feel like family. A love letter to the Italian table.',
     images: ['/images/big-night-menu.webp', '/images/big-night-screening.webp'],
     gradient: 'from-[#1e1508] via-[#2d2010] to-[#0f0a04]',
-    overlay: 'bg-black/30',
+    overlay: 'bg-black/15',
     accent: '#c09060',
   },
   {
@@ -41,7 +41,7 @@ const films = [
       'Hitchcockian tension rendered in florals. Steel-grey eucalyptus and dramatic black tulips create a table of suspense and sophistication. An evening of intrigue.',
     images: ['/images/north-by-northwest-menu.webp', '/images/north-by-northwest-table.webp'],
     gradient: 'from-[#0e121a] via-[#1a2030] to-[#080c12]',
-    overlay: 'bg-black/35',
+    overlay: 'bg-black/20',
     accent: '#8090a8',
   },
   {
@@ -54,7 +54,7 @@ const films = [
       'The golden hour of a chance encounter. Dried lavender and blush roses left to wander naturally, with the gentle warmth of an unhurried evening in Vienna.',
     images: ['/images/before-sunrise-menu.webp', '/images/before-sunrise-table.webp'],
     gradient: 'from-[#1e1a10] via-[#2d2818] to-[#100e08]',
-    overlay: 'bg-black/25',
+    overlay: 'bg-black/15',
     accent: '#c0a070',
   },
 ]
@@ -122,8 +122,8 @@ function FilmPanel({ film }: { film: typeof films[0] }) {
 
       {/* Cinematic color grade overlay */}
       <div className={`absolute inset-0 z-10 ${film.overlay}`} />
-      <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
-      <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/40 to-transparent" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/50 via-transparent to-black/10" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/25 to-transparent" />
 
       {/* Film grain */}
       <div className="film-grain absolute inset-0 z-20 pointer-events-none opacity-30" />
