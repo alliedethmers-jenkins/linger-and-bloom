@@ -31,15 +31,6 @@ export default function Hero() {
         style={{ opacity }}
         className="relative z-10 px-8 md:px-12 pb-16 md:pb-20 max-w-xl"
       >
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.1, ease: 'easeOut' }}
-          className="font-script text-5xl md:text-6xl text-white/80 leading-none mb-3"
-        >
-          Linger &amp; Bloom
-        </motion.p>
-
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
