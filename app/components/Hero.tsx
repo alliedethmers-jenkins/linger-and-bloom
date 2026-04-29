@@ -15,7 +15,7 @@ export default function Hero() {
       {/* Full-screen background image */}
       <motion.div style={{ y }} className="absolute inset-0 z-0 scale-110">
         <Image
-          src="/images/iris-and-fig.webp"
+          src="/images/hero-still-life.webp"
           alt="Linger & Bloom"
           fill
           priority
