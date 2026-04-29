@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
 
 const links = [
@@ -29,8 +30,14 @@ export default function Navigation() {
       className="fixed top-0 left-0 right-0 z-50"
     >
       <div className="max-w-none mx-auto px-8 flex items-center justify-between h-14">
-        <a href="#" className="font-script text-3xl text-white/90 hover:text-white transition-colors leading-none">
-          Linger &amp; Bloom
+        <a href="#" className="block h-10 w-36 relative" style={{ mixBlendMode: 'screen' }}>
+          <Image
+            src="/images/logo-wordmark.webp"
+            alt="Linger & Bloom"
+            fill
+            className="object-contain object-left"
+            sizes="144px"
+          />
         </a>
         <nav className="hidden md:flex items-center gap-10">
           {links.map(({ label, href }) => (

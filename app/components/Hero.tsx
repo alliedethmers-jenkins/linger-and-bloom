@@ -31,14 +31,22 @@ export default function Hero() {
         style={{ opacity }}
         className="relative z-10 px-8 md:px-12 pb-16 md:pb-20 max-w-xl"
       >
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.1, ease: 'easeOut' }}
-          className="font-script text-5xl md:text-6xl text-white/80 leading-none mb-3"
+          className="relative h-20 w-72 mb-2"
+          style={{ mixBlendMode: 'screen' }}
         >
-          Linger &amp; Bloom
-        </motion.p>
+          <Image
+            src="/images/logo-wordmark.webp"
+            alt="Linger & Bloom"
+            fill
+            className="object-contain object-left"
+            sizes="288px"
+            priority
+          />
+        </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
