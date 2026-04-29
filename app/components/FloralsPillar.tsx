@@ -13,10 +13,10 @@ const films = [
     tagline: 'Velvet reds, gilded stems, and theatrical excess.',
     description:
       'An evening of decadent florals and theatrical glamour. Crimson roses spill from gilded urns; candlelight catches on sequined table runners. An immersive dinner that dazzles.',
-    images: ['/images/moulin-rouge-florals.webp'],
+    images: ['/images/moulin-rouge-menu.webp', '/images/moulin-rouge-table.webp'],
     gradient: 'from-[#1a0505] via-[#2d0c0c] to-[#0a0202]',
     overlay: 'bg-black/40',
-    accent: '#c0605050',
+    accent: '#c06050',
   },
   {
     index: '02',
@@ -26,7 +26,7 @@ const films = [
     tagline: 'Terracotta vessels, olive branches, candlelit abundance.',
     description:
       'A feast for the eyes. Warm terracotta, generous olive branches, and the kind of candlelit table that makes every guest feel like family. A love letter to the Italian table.',
-    images: ['/images/big-night-screening.webp', '/images/big-night-menu.webp'],
+    images: ['/images/big-night-menu.webp', '/images/big-night-screening.webp'],
     gradient: 'from-[#1e1508] via-[#2d2010] to-[#0f0a04]',
     overlay: 'bg-black/30',
     accent: '#c09060',
@@ -39,7 +39,7 @@ const films = [
     tagline: 'Silver-grey foliage, black tulips, gold candlestick drama.',
     description:
       'Hitchcockian tension rendered in florals. Steel-grey eucalyptus and dramatic black tulips create a table of suspense and sophistication. An evening of intrigue.',
-    images: [],
+    images: ['/images/north-by-northwest-menu.webp', '/images/north-by-northwest-table.webp'],
     gradient: 'from-[#0e121a] via-[#1a2030] to-[#080c12]',
     overlay: 'bg-black/35',
     accent: '#8090a8',
@@ -52,7 +52,7 @@ const films = [
     tagline: 'Dusty roses and dried lavender. A wandering evening tablescape.',
     description:
       'The golden hour of a chance encounter. Dried lavender and blush roses left to wander naturally, with the gentle warmth of an unhurried evening in Vienna.',
-    images: [],
+    images: ['/images/before-sunrise-menu.webp', '/images/before-sunrise-table.webp'],
     gradient: 'from-[#1e1a10] via-[#2d2818] to-[#100e08]',
     overlay: 'bg-black/25',
     accent: '#c0a070',
