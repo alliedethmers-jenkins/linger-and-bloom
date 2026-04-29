@@ -25,6 +25,7 @@ const config: Config = {
         playfair: ['var(--font-playfair)', 'Georgia', 'serif'],
         cormorant: ['var(--font-cormorant)', 'Georgia', 'serif'],
         mono: ['var(--font-mono)', '"Courier New"', 'monospace'],
+        script: ['var(--font-script)', 'cursive'],
       },
     },
   },

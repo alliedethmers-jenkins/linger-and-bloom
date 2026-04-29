@@ -29,8 +29,8 @@ export default function Navigation() {
       className="fixed top-0 left-0 right-0 z-50"
     >
       <div className="max-w-none mx-auto px-8 flex items-center justify-between h-14">
-        <a href="#" className="font-cormorant text-base text-white/90 hover:text-white transition-colors tracking-wide">
-          Linger <span className="italic">&amp;</span> Bloom
+        <a href="#" className="font-script text-3xl text-white/90 hover:text-white transition-colors leading-none">
+          Linger &amp; Bloom
         </a>
         <nav className="hidden md:flex items-center gap-10">
           {links.map(({ label, href }) => (
